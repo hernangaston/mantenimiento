@@ -7,7 +7,7 @@ export const registro = async (req, res) => {
     try {
         const hashedPassword = await bcrypt.hash(password, 10);
         await db.execute(
-            'INSERT INTO usuarios (email, password) VALUES (?, ?)',
+            'INSERT INTO usuario (email, password) VALUES (?, ?)',
             [email, hashedPassword]
         );
         res.status(201).json({ message: 'Usuario registrado exitosamente' });
@@ -19,7 +19,7 @@ export const registro = async (req, res) => {
 export const login = async (req, res) => {
     const { email, password } = req.body;
     try {
-        const [rows] = await db.execute('SELECT * FROM `usuarios` WHERE email = ?', [email]);
+        const [rows] = await db.execute('SELECT * FROM `usuario` WHERE email = ?', [email]);
 
         if (rows.length === 0) {
             return res.status(401).json({ error: 'Usuario no encontrado' });
@@ -32,6 +32,14 @@ export const login = async (req, res) => {
         }
 
         const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+        res.cookie('token', token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'strict',
+            maxAge: 3600000, // 1 hour in milliseconds
+        });
+
         res.json({ token });//devuelve el token
 
     } catch (error) {
