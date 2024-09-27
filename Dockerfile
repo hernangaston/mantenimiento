@@ -11,4 +11,4 @@ EXPOSE 3000
 
 COPY . .
 
-CMD npm dev
+CMD npm run dev
