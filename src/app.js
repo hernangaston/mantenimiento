@@ -10,7 +10,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 
-app.use(cors());
+//app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:4200',  // Cambia esto a la URL de tu frontend
+  credentials: true  // Habilita el envío de cookies en las solicitudes del frontend
+}));
+
 
 /*app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
