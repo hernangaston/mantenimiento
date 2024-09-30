@@ -18,8 +18,6 @@ export const registro = async (req, res) => {
 };
 
 export const login = async (req, res) => {
-    
-    
     const { email, password } = req.body;
     try {
         const [rows] = await db.execute('SELECT * FROM `Usuario` WHERE email = ?', [email]);
