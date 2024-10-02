@@ -1,4 +1,4 @@
-import { db } from "../db";
+import { db } from "../db.js";
 
 export const listaEdificio = async (req, res) => {
     await db.query('SELECT * FROM Edificio', (err, results) => {
