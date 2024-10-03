@@ -1,4 +1,3 @@
-import { db } from "../db.js";
 
 export const dashboard = (req, res) => {
     const token = req.cookies['auth-token'];
