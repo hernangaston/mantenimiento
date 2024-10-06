@@ -12,7 +12,7 @@ export const registro = async (req, res) => {
         await db.query('INSERT INTO Usuario (email, password) VALUES (?, ?)', [email, hashedPassword]);
         res.status(201).json({ message: 'Usuario registrado exitosamente' });
     } catch (error) {
-        res.status(500).json({ message: 'Error al registrar el usuario' });
+        res.status(500).json({ message: 'Error al registrar el usuario'+error });
     }
 };
 
