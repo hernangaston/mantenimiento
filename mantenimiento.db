@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS Tag (
   id_tag SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   nombre VARCHAR(255),
-  tag_deminutivo VARCHAR(255),
+  tag_diminutivo VARCHAR(255),
   fecha_creacion DATETIME
 );
 

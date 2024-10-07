@@ -2,3 +2,4 @@
 /node_modules/
 config_local.js
 mantenimiento.db
+./src/db.js
