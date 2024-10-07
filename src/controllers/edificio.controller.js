@@ -12,16 +12,16 @@ export const edificio = async (req, res) => {
 }
 
 export const nuevoEdificio = async (req, res) => {
-    const { Nombre, Direccion, labelTag, id_piso, fecha_creacion } = req.body;
-    const query = 'INSERT INTO Edificio (Nombre, Direccion, labelTag, id_piso, fecha_creacion) VALUES (?, ?, ?, ?, ?)';        
-    executeQuery(query, [Nombre, Direccion, labelTag, id_piso, fecha_creacion], res, "Edificio creado.");
+    const { Nombre, Direccion, labelTag, id_piso } = req.body;
+    const query = 'INSERT INTO Edificio (Nombre, Direccion, labelTag, id_piso) VALUES (?, ?, ?, ?, ?)';        
+    executeQuery(query, [Nombre, Direccion, labelTag, id_piso], res, "Edificio creado.");
 }
 
 export const actualizaEdificio = async (req, res) => {
     const { id } = req.params;
-    const { Nombre, Direccion, labelTag, id_piso, fecha_creacion } = req.body;
+    const { Nombre, Direccion, labelTag, id_piso } = req.body;
     const query = 'UPDATE Edificio SET Nombre = ?, Direccion = ?, labelTag = ?, id_piso = ?, fecha_creacion = ? WHERE id_edificio = ?';    
-    executeQuery(query, [Nombre, Direccion, labelTag, id_piso, fecha_creacion, id], res, "Edificio actualizado.");
+    executeQuery(query, [Nombre, Direccion, labelTag, id_piso, id], res, "Edificio actualizado.");
 }
 
 export const deleteEdificio = async (req, res) => {

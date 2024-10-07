@@ -9,6 +9,11 @@ import activoRoutes from "./routes/activo.routes.js";
 import tipoTareaRoutes from "./routes/tipoTarea.routes.js"
 import tareaRoutes from "./routes/tarea.routes.js";
 import activoTareaRoutes from "./routes/activoTarea.routes.js";
+import ubicacionRoutes from "./routes/ubicacion.routes.js";
+import pisoRouter from "./routes/piso.routes.js";
+import odtRouter from "./routes/ordenDeTrabajo.routes.js";
+
+
 const app = express();
 
 app.use(cors({ origin: 'http://localhost:4200', credentials: true })); 
@@ -23,6 +28,8 @@ app.use("api/activo/", activoRoutes);
 app.use("api/tipoTarea/", tipoTareaRoutes);
 app.use("api/tarea/", tareaRoutes);
 app.use("api/activoTarea/", activoTareaRoutes);
-
+app.use("api/ubicacion/", ubicacionRoutes);
+app.use("api/piso/", pisoRouter)
+app.use("api/ordenDeTrabajo", odtRouter);
 
 export default app;
