@@ -14,7 +14,7 @@ export const tag = async (req, res) => {
 }
 
 export const tags = async (req, res) => {
-    const query = 'SELECT * FROM tag';
+    const query = 'SELECT * FROM Tag';
     executeQuery(query, [], res);
 }
 
