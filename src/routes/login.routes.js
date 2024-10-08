@@ -12,8 +12,4 @@ router.post('/registro', registro);
 router.post('/login', login);
 router.get('/protected', verifyToken, protect);
 
-router.use((req, res, next) => {
-    res.status(404).send("No existe pagina...");
-});
-
 export default router;

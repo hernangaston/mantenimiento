@@ -46,13 +46,20 @@ export const protect = (req, res) => {
 };
 
 export const verifyToken = (req, res, next) => {
-    const token = req.headers['authorization'];
+    //console.log(req.headers['authorization']);
+    //const token = req.headers['authorization'];
+    
+    const token = req.headers.authorization.split(' ')[1]; // Extraer el token después de 'Bearer'
+    //const token = req.body.token || req.query.token || req.headers['x-access-token'];
+    console.log(token)
     if (!token) {
         return res.status(403).json({ error: 'No se proporcionó un token' });
     }
+   
+    
     jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
         if (err) {
-            return res.status(500).json({ error: 'Falló la autenticación del token' });
+            return res.status(500).json({ error: 'Falló la autenticación del token ' });
         }
         req.userId = decoded.id;
         next();

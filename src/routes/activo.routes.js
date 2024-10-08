@@ -3,7 +3,7 @@ import { listaActivo, activo, nuevoActivo, updateActivo, deleteActivo } from "..
 
 const router = Router();
 
-router.get('/', listaActivo);
+router.get('', listaActivo);
 router.get('/:id', activo);
 router.post('/', nuevoActivo);
 router.patch('/:id', updateActivo);
