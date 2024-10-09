@@ -1,0 +1,108 @@
+CREATE TABLE IF NOT EXISTS Tag (
+  id_tag SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(255),
+  tag_diminutivo VARCHAR(255),
+  fecha_creacion DATETIME
+);
+
+CREATE TABLE IF NOT EXISTS Activo (
+  id_activo SMALLINT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(255),
+  id_tag SMALLINT,
+  Disponibilidad TINYINT(1),
+  labelTag SMALLINT,
+  numero_existencia SMALLINT,
+  numero_real SMALLINT
+);
+
+CREATE TABLE IF NOT EXISTS tipo_tarea (
+  id_tita SMALLINT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(255),
+  descripcion VARCHAR(255),
+  fecha_creacion DATETIME
+);
+
+CREATE TABLE IF NOT EXISTS Tarea (
+  id_tarea SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  id_tita SMALLINT,
+  tiempo_estimado DECIMAL(10, 2),
+  fecha_creacion DATETIME,
+  FOREIGN KEY (id_tita) REFERENCES tipo_tarea (id_tita)
+);
+
+CREATE TABLE IF NOT EXISTS activo_tarea (
+  id_actar SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  id_activo SMALLINT,
+  id_tarea SMALLINT,
+  FOREIGN KEY (id_activo) REFERENCES Activo (id_activo),
+  FOREIGN KEY (id_tarea) REFERENCES Tarea (id_tarea)
+);
+
+
+
+CREATE TABLE IF NOT EXISTS Usuario (
+  id SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  email VARCHAR(255),
+  password VARCHAR(255),
+  fecha_creacion DATETIME
+);
+
+CREATE TABLE IF NOT EXISTS Ubicacion (
+  id_ubicacion SMALLINT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(255),
+  labelTag SMALLINT,
+  fecha_creacion DATETIME
+);
+
+CREATE TABLE IF NOT EXISTS Sector (
+  id_sector SMALLINT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(255),
+  labelTag SMALLINT,
+  id_activo SMALLINT,
+  id_ubicacion SMALLINT,
+  fecha_creacion DATETIME,
+  FOREIGN KEY (id_activo) REFERENCES Activo (id_activo),
+  FOREIGN KEY (id_ubicacion) REFERENCES Ubicacion (id_ubicacion)
+);
+
+
+CREATE TABLE IF NOT EXISTS Piso (
+  id_piso SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(255),
+  labelTag SMALLINT,
+  id_sector SMALLINT,
+  fecha_creacion DATETIME,
+  FOREIGN KEY (id_sector) REFERENCES Sector (id_sector)
+);
+
+CREATE TABLE IF NOT EXISTS Edificio (
+  id_edificio SMALLINT AUTO_INCREMENT PRIMARY KEY,
+  Nombre VARCHAR(255) NOT NULL,
+  Direccion VARCHAR(255) NOT NULL,
+  labelTag MEDIUMINT,
+  id_piso SMALLINT,
+  fecha_creacion DATETIME,
+  FOREIGN KEY (id_piso) REFERENCES Piso (id_piso)
+);
+
+CREATE TABLE IF NOT EXISTS Orden_trabajo (
+  id_ot SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  fecha_impresion DATETIME,
+  observacion VARCHAR(255),
+  fecha_terminacion DATETIME,
+  realizada TINYINT(1),
+  id_operario SMALLINT,
+  tiempo DATETIME,
+  id_edificio SMALLINT,
+  id_piso SMALLINT,
+  id_sector SMALLINT,
+  id_ubicacion SMALLINT,
+  id_activo SMALLINT,
+  fecha_creacion DATETIME,
+  FOREIGN KEY (id_operario) REFERENCES Usuario (id),
+  FOREIGN KEY (id_edificio) REFERENCES Edificio (id_edificio),
+  FOREIGN KEY (id_piso) REFERENCES Piso (id_piso),
+  FOREIGN KEY (id_sector) REFERENCES Sector (id_sector),
+  FOREIGN KEY (id_ubicacion) REFERENCES Ubicacion (id_ubicacion),
+  FOREIGN KEY (id_activo) REFERENCES Activo (id_activo)
+);

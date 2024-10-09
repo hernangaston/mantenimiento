@@ -4,43 +4,37 @@ import { db } from "../db.js";
 
 export const registro = async (req, res) => {
     const { email, password } = req.body;
+    if (!email || !password) return res.status(400).json({ message: 'Email y contraseña son requeridos' });
     try {
+        const [rows] = await db.query('SELECT * FROM Usuario WHERE email = ?', [email]);
+        if (rows.length > 0) return res.status(400).json({ message: 'El usuario ya existe' });
         const hashedPassword = await bcrypt.hash(password, 10);
-        await db.execute(
-            'INSERT INTO usuario (email, password) VALUES (?, ?)',
-            [email, hashedPassword]
-        );
+        await db.query('INSERT INTO Usuario (email, password) VALUES (?, ?)', [email, hashedPassword]);
         res.status(201).json({ message: 'Usuario registrado exitosamente' });
-    } catch (err) {
-        res.status(500).json({ error: err.message });
+    } catch (error) {
+        res.status(500).json({ message: 'Error al registrar el usuario'+error });
     }
 };
 
 export const login = async (req, res) => {
+
     const { email, password } = req.body;
     try {
-        const [rows] = await db.execute('SELECT * FROM `usuario` WHERE email = ?', [email]);
+        const [rows] = await db.execute('SELECT * FROM `Usuario` WHERE email = ?', [email]);
 
         if (rows.length === 0) {
             return res.status(401).json({ error: 'Usuario no encontrado' });
         }
 
         const user = rows[0];
-        const isMatch = await bcrypt.compare(password, user.password);//devuelve true o false
+        const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
             return res.status(401).json({ error: 'Contraseña incorrecta' });
         }
 
-        const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-
-        res.cookie('token', token, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            sameSite: 'strict',
-            maxAge: 3600000, // 1 hour in milliseconds
-        });
-
-        res.json({ token });//devuelve el token
+        const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET, { expiresIn: '15 mins' });
+        res.cookie('auth-token', token, { httpOnly: false, sameSite: 'lax' })
+        res.json({ message: 'Inicio de sesión exitoso' });
 
     } catch (error) {
         res.status(500).json({ error: 'Error al iniciar sesión' });
@@ -52,13 +46,20 @@ export const protect = (req, res) => {
 };
 
 export const verifyToken = (req, res, next) => {
-    const token = req.headers['authorization'];
+    //console.log(req.headers['authorization']);
+    //const token = req.headers['authorization'];
+    
+    const token = req.headers.authorization.split(' ')[1]; // Extraer el token después de 'Bearer'
+    //const token = req.body.token || req.query.token || req.headers['x-access-token'];
+    console.log(token)
     if (!token) {
         return res.status(403).json({ error: 'No se proporcionó un token' });
     }
+   
+    
     jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
         if (err) {
-            return res.status(500).json({ error: 'Falló la autenticación del token' });
+            return res.status(500).json({ error: 'Falló la autenticación del token ' });
         }
         req.userId = decoded.id;
         next();
