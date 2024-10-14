@@ -1,17 +1,17 @@
 import { executeQuery } from "../helpers/helpFunctions.js";
 
-export const listaODT = async (req, res) => {
+export const listaODT = (req, res) => {
     const query = 'SELECT * FROM Orden_trabajo';
     executeQuery(query, [], res);
 }
 
-export const oDt = async (req, res) => {
+export const oDt = (req, res) => {
     const { id } = req. params;
     const query = 'SELECT * FROM Orden_trabajo WHERE id_ot = ?';
     executeQuery(query, [id], res);
 }
 
-export const nuevaODT = async (req, res) => {
+export const nuevaODT = (req, res) => {
     const { fecha_impresion, observacion, fecha_terminacion, realizada, id_operario, tiempo,
         id_edificio, id_piso, id_sector, id_ubicacion, id_activo } = req.body;
     const query = 'INSERT INTO Orden_trabajo (fecha_impresion, observacion, fecha_terminacion, realizada, id_operario, tiempo,\
@@ -21,7 +21,7 @@ export const nuevaODT = async (req, res) => {
  }
 
 
-export const updateODT = async (req, res) => {
+export const updateODT = (req, res) => {
     const { id } = req.params;
     const { fecha_impresion, observacion, fecha_terminacion, realizada, id_operario, tiempo,
         id_edificio, id_piso, id_sector, id_ubicacion, id_activo } = req.body;
@@ -31,7 +31,7 @@ export const updateODT = async (req, res) => {
         id_edificio, id_piso, id_sector, id_ubicacion, id_activo, id], res, "Orden de trabajo actualizada.")
  }
 
- export const deleteODT = async (req, res) => {
+ export const deleteODT = (req, res) => {
     const { id } = req.params;
     const query = 'DELETE FROM Orden_trabajo WHERE id_ot = ?';
     executeQuery(query, [id], res, "orden de trabajo eliminada.")

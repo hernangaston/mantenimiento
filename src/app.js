@@ -12,6 +12,7 @@ import activoTareaRoutes from "./routes/activoTarea.routes.js";
 import ubicacionRoutes from "./routes/ubicacion.routes.js";
 import pisoRouter from "./routes/piso.routes.js";
 import odtRouter from "./routes/ordenDeTrabajo.routes.js";
+import sectorRouter from "./routes/sector.routes.js";
 
 
 const app = express();
@@ -29,7 +30,8 @@ app.use("/api/tipoTarea", tipoTareaRoutes);
 app.use("/api/tarea", tareaRoutes);
 app.use("/api/activoTarea", activoTareaRoutes);
 app.use("/api/ubicacion", ubicacionRoutes);
-app.use("/api/piso", pisoRouter)
+app.use("/api/piso", pisoRouter);
+app.use("/api/sector", sectorRouter);
 app.use("/api/ordenDeTrabajo", odtRouter);
 
 
