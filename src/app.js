@@ -22,15 +22,15 @@ app.use(cookieParser());
 
 
 app.use("", loginRoutes);
-app.use('/edificio', edificioRoutes);
-app.use("/tag", tagRoutes);
-app.use("activo/", activoRoutes);
-app.use("tipoTarea/", tipoTareaRoutes);
-app.use("tarea/", tareaRoutes);
-app.use("activoTarea/", activoTareaRoutes);
-app.use("ubicacion/", ubicacionRoutes);
-app.use("piso/", pisoRouter)
-app.use("ordenDeTrabajo", odtRouter);
+app.use("/api/edificio", edificioRoutes);
+app.use("/api/tag", tagRoutes);
+app.use("/api/activo", activoRoutes);
+app.use("/api/tipoTarea", tipoTareaRoutes);
+app.use("/api/tarea", tareaRoutes);
+app.use("/api/activoTarea", activoTareaRoutes);
+app.use("/api/ubicacion", ubicacionRoutes);
+app.use("/api/piso", pisoRouter)
+app.use("/api/ordenDeTrabajo", odtRouter);
 
 
 

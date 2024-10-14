@@ -13,7 +13,7 @@ export const tipoTarea = async (req, res) => {
 
 export const nuevoTipoTarea = async (req, res) => {
     const {nombre, descripcion} = req.body;
-    const query = 'INSERT INTO tipo_tarea (nombre, descripcion) VALUES (?,?)';
+    const query = 'INSERT INTO tipo_tarea (nombre, descripcion, fecha_creacion) VALUES (?, ?, NOW())';
     executeQuery(query, [nombre, descripcion], res, "Tipo de tarea creado.");
 }
 
