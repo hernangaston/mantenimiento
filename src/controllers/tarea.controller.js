@@ -14,7 +14,7 @@ export const tarea = async (req, res) => {
 
 export const nuevaTarea = async (req, res) => {
     const {id_tita, tiempo_estimado, } = req.body;
-    const query = 'INSER INTO Tarea (id_tita, tiempo_estimado) VALUES (?,?)';
+    const query = 'INSERT INTO Tarea (id_tita, tiempo_estimado, fecha_creacion) VALUES (?, ?, NOW())';
     executeQuery(query, [id_tita, tiempo_estimado], res, "Tarea creada.")
 }
 
