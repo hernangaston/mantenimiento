@@ -22,7 +22,7 @@ export const piso = (req, res) => {
 
 export const nuevoPiso = (req, res) => {
     const {  nombre, labelTag, id_sector } = req.body;
-    const query = 'INSERT INTO Piso (nombre, labelTag, id_sector) VALUES (?,?,?)';
+    const query = 'INSERT INTO Piso (nombre, labelTag, id_sector, fecha_creacion) VALUES (?, ?, ?, NOW())';
     executeQuery(query, [nombre, labelTag, id_sector], res, "Piso creado.");
 }
 

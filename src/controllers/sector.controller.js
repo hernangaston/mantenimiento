@@ -25,7 +25,7 @@ export const sector = (req, res) => {
 
 export const nuevoSector = (req, res) => {
     const { nombre, labelTag, id_activo, id_ubicacion } = req.body;
-    const query = 'INSERT INTO Sector (nombre, labelTag, id_activo, id_ubicacion) VALUES (?, ?, ?, ?)';        
+    const query = 'INSERT INTO Sector (nombre, labelTag, id_activo, id_ubicacion, fecha_creacion) VALUES (?, ?, ?, ?, NOW())';        
     executeQuery(query, [nombre, labelTag, id_activo, id_ubicacion], res, "Sector creado.");
 }
 

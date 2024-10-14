@@ -13,7 +13,7 @@ export const edificio = (req, res) => {
 
 export const nuevoEdificio = (req, res) => {
     const { Nombre, Direccion, labelTag, id_piso } = req.body;
-    const query = 'INSERT INTO Edificio (Nombre, Direccion, labelTag, id_piso) VALUES (?, ?, ?, ?, ?)';        
+    const query = 'INSERT INTO Edificio (Nombre, Direccion, labelTag, id_piso, fecha_creacion) VALUES (?, ?, ?, ?, NOW())';        
     executeQuery(query, [Nombre, Direccion, labelTag, id_piso], res, "Edificio creado.");
 }
 
