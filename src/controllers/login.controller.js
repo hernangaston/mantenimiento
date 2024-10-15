@@ -37,6 +37,7 @@ export const login = async (req, res) => {
         res.json({ message: 'Inicio de sesión exitoso' });
 
     } catch (error) {
+        console.log(error);
         res.status(500).json({ error: 'Error al iniciar sesión' });
     }
 };
@@ -46,12 +47,7 @@ export const protect = (req, res) => {
 };
 
 export const verifyToken = (req, res, next) => {
-    //console.log(req.headers['authorization']);
-    //const token = req.headers['authorization'];
-    
     const token = req.headers.authorization.split(' ')[1]; // Extraer el token después de 'Bearer'
-    //const token = req.body.token || req.query.token || req.headers['x-access-token'];
-    console.log(token)
     if (!token) {
         return res.status(403).json({ error: 'No se proporcionó un token' });
     }

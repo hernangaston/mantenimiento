@@ -18,6 +18,7 @@ export const nuevaODT = (req, res) => {
 
     const query = 'INSERT INTO Orden_trabajo (fecha_impresion, observacion, fecha_terminacion, realizada, id_operario, tiempo,\
         id_edificio, id_piso, id_sector, id_ubicacion, id_activo, fecha_creacion) VALUES (?,?,?,?,?,?,?,?,?,?,?, NOW())';
+        
     executeQuery(query, [fecha_impresion, observacion, fecha_terminacion, realizada, id_operario, tiempo,
         id_edificio, id_piso, id_sector, id_ubicacion, id_activo], res, "Orden de trabajo creada.")
  }
