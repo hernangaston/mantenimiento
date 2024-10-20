@@ -5,7 +5,7 @@ const router = Router();
 router.get('/', listaODT);
 router.get('/:id', oDt);
 router.post('/', nuevaODT);
-router.put('/:id', updateODT);
+router.patch('/:id', updateODT);
 router.delete('/:id', deleteODT);
 
 export default router;

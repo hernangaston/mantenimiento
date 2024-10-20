@@ -1,15 +1,3 @@
-/*CREATE TABLE IF NOT EXISTS Sector (
-  id_sector SMALLINT AUTO_INCREMENT PRIMARY KEY,
-  nombre VARCHAR(255),
-  labelTag SMALLINT,
-  id_activo SMALLINT,
-  id_ubicacion SMALLINT,
-  fecha_creacion DATETIME,
-  FOREIGN KEY (id_activo) REFERENCES Activo (id_activo),
-  FOREIGN KEY (id_ubicacion) REFERENCES Ubicacion (id_ubicacion)
-);*/
-
-
 import { executeQuery } from "../helpers/helpFunctions.js";
 
 export const listaSector = (req, res) => {

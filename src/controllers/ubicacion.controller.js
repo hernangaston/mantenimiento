@@ -1,10 +1,3 @@
-/*CREATE TABLE IF NOT EXISTS Ubicacion (
-  id_ubicacion SMALLINT AUTO_INCREMENT PRIMARY KEY,
-  nombre VARCHAR(255),
-  labelTag SMALLINT,
-  fecha_creacion DATETIME
-);*/
-
 import { executeQuery } from "../helpers/helpFunctions.js";
 
 
