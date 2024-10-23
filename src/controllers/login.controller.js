@@ -17,7 +17,6 @@ export const registro = async (req, res) => {
 };
 
 export const login = async (req, res) => {
-
     const { email, password } = req.body;
     try {
         const [rows] = await db.execute('SELECT * FROM `Usuario` WHERE email = ?', [email]);
@@ -33,8 +32,8 @@ export const login = async (req, res) => {
         }
 
         const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET, { expiresIn: '15 mins' });
-        res.cookie('auth-token', token, { httpOnly: false, sameSite: 'lax' })
-        res.json({ message: 'Inicio de sesión exitoso' });
+        
+        res.json({message: 'sesion iniciada', token: token});
 
     } catch (error) {
         console.log(error);

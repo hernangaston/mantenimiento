@@ -7,8 +7,8 @@ export const listaODT = (req, res) => {
 
 export const oDt = (req, res) => {
     const { id } = req.params;
-    const query = 'SELECT * FROM Orden_trabajo WHERE id_ot = ?';
-    const query2 = `
+    //const query = 'SELECT * FROM Orden_trabajo WHERE id_ot = ?';
+    const query = `
     SELECT 
         ot.id_ot, ot.fecha_impresion, ot.observacion, ot.fecha_terminacion, ot.realizada, ot.id_op, ot.tiempo,
         e.Nombre AS nombre_edificio, e.Direccion AS direccion_edificio,
@@ -22,17 +22,14 @@ export const oDt = (req, res) => {
         LEFT JOIN Activo a ON ot.id_activo = a.id_activo
         WHERE ot.id_ot = ?;
         `;
-    executeQuery(query2, [id], res);
+    executeQuery(query, [id], res);
 }
 
 export const nuevaODT = (req, res) => {
     const { fecha_impresion, observacion, fecha_terminacion, realizada, id_op, id_edificio, id_piso, id_sector, id_ubicacion, id_activo, tiempo } = req.body;
-
     const query = 'INSERT INTO Orden_trabajo (fecha_impresion, observacion, fecha_terminacion, realizada, id_op, tiempo, id_edificio, id_piso, id_sector, id_ubicacion, id_activo, fecha_creacion) VALUES (?,?,?,?,?,?,?,?,?,?,?, NOW())';
-
     executeQuery(query, [fecha_impresion, observacion, fecha_terminacion, realizada, id_op, tiempo, id_edificio, id_piso, id_sector, id_ubicacion, id_activo], res, "Orden de trabajo creada.");
 }
-
 
 export const updateODT = (req, res) => {
     const { id } = req.params;
