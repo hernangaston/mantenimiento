@@ -13,13 +13,14 @@ export const oDt = (req, res) => {
         ot.id_ot, ot.fecha_impresion, ot.observacion, ot.fecha_terminacion, ot.realizada, ot.id_op, ot.tiempo,
         e.Nombre AS nombre_edificio, e.Direccion AS direccion_edificio,
         p.nombre AS nombre_piso, s.nombre AS nombre_sector, u.nombre AS nombre_ubicacion, a.nombre AS nombre_activo,
-        ot.fecha_creacion
+        ot.fecha_creacion, t.nombre AS nombre_tag, t.tag_deminutivo AS diminutivo 
         FROM Orden_trabajo ot
         LEFT JOIN Edificios e ON ot.id_edificio = e.id_edificio
         LEFT JOIN Piso p ON ot.id_piso = p.id_piso
         LEFT JOIN Sector s ON ot.id_sector = s.id_sector
         LEFT JOIN Ubicacion u ON ot.id_ubicacion = u.id_ubicacion
         LEFT JOIN Activo a ON ot.id_activo = a.id_activo
+        LEFT JOIN Tag t ON a.id_tag = t.id_tag
         WHERE ot.id_ot = ?;
         `;
     executeQuery(query, [id], res);

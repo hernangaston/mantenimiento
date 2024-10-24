@@ -42,3 +42,11 @@ export const tareaByActivo = (req, res) => {
       WHERE at.id_activo = ?`;
     executeQuery(query, [id_activo], res);
 }
+
+export const tagsByActivo = (req, res) => {
+    console.log(req.params);
+    const { id } = req.params;
+    const query = 'SELECT * FROM Tag WHERE id_tag = ?';
+    executeQuery(query, [id], res);
+}
+

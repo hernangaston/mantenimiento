@@ -30,3 +30,14 @@ export const deleteTag = async (req, res) => {
     const query = 'DELETE FROM Tag WHERE id_tag = ?';
     executeQuery(query, [id], res, "Tag eliminado.");
 }
+
+export const activoByTag = (req, res) => {
+    const { id } = req.params;
+    //const query = 'SELECT * FROM Tag WHERE id_tag = ?';
+    const query = `
+      SELECT * 
+      FROM Activo
+      WHERE id_tag = ?`;
+    executeQuery(query, [id], res);
+}
+
