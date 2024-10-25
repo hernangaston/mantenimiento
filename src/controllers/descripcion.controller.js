@@ -32,3 +32,10 @@ export const deleteDescripcion = (req, res) => {
     const query = 'DELETE FROM Descripcion WHERE id_descripcion = ?';
     executeQuery(query, [id_descripcion], res);
 }
+
+export const descripcionByTtarea = (req, res) => {
+    const {id} = req.params;
+    const query = 'SELECT * FROM Descripcion WHERE id_tita = ?'
+    executeQuery(query, [id], res);
+}
+
