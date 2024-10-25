@@ -24,7 +24,7 @@ export const updateActivo = (req, res) => {
     const { id_activo } = req.params;
 
     const query = 'UPDATE Activo SET nombre = ?, id_tag = ?, Disponibilidad = ?, labelTag = ?, numero_existencia = ?, numero_real = ? WHERE id_activo = ?';
-    executeQuery(query, [nombre, id_tag, disponibilidad, labelTag, numero_existencia, numero_real, id_activo].res);
+    executeQuery(query, [nombre, id_tag, disponibilidad, labelTag, numero_existencia, numero_real, id_activo], res);
 }
 
 export const deleteActivo = (req, res) => {
@@ -44,7 +44,6 @@ export const tareaByActivo = (req, res) => {
 }
 
 export const tagsByActivo = (req, res) => {
-    console.log(req.params);
     const { id } = req.params;
     const query = 'SELECT * FROM Tag WHERE id_tag = ?';
     executeQuery(query, [id], res);

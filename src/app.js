@@ -14,6 +14,7 @@ import pisoRouter from "./routes/piso.routes.js";
 import odtRouter from "./routes/ordenDeTrabajo.routes.js";
 import sectorRouter from "./routes/sector.routes.js";
 import operarioRouter from "./routes/operario.routes.js";
+import descRouter from "./routes/descripcion.routes.js";
 
 const app = express();
 
@@ -34,6 +35,7 @@ app.use("/api/piso", pisoRouter);
 app.use("/api/sector", sectorRouter);
 app.use("/api/orden", odtRouter);
 app.use("/api/operario", operarioRouter);
+app.use("/api/descripcion", descRouter);
 
 
 
