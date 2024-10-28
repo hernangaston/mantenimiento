@@ -1,4 +1,5 @@
 import { executeQuery } from "../helpers/helpFunctions.js";
+import { db } from "../db.js";
 
 export const listaODT = (req, res) => {
     const query = 'SELECT * FROM Orden_trabajo';
@@ -26,10 +27,23 @@ export const oDt = (req, res) => {
     executeQuery(query, [id], res);
 }
 
-export const nuevaODT = (req, res) => {
-    const { fecha_impresion, observacion, fecha_terminacion, realizada, id_op, id_edificio, id_piso, id_sector, id_ubicacion, id_activo, tiempo } = req.body;
+export const nuevaODT = async (req, res) => {
+    const { fecha_impresion, observacion, fecha_terminacion, realizada, id_op, id_edificio, id_piso, id_sector,id_tarea, id_ubicacion, id_activo, tiempo } = req.body;
     const query = 'INSERT INTO Orden_trabajo (fecha_impresion, observacion, fecha_terminacion, realizada, id_op, tiempo, id_edificio, id_piso, id_sector, id_ubicacion, id_activo, fecha_creacion) VALUES (?,?,?,?,?,?,?,?,?,?,?, NOW())';
-    executeQuery(query, [fecha_impresion, observacion, fecha_terminacion, realizada, id_op, tiempo, id_edificio, id_piso, id_sector, id_ubicacion, id_activo], res, "Orden de trabajo creada.");
+    const params = [fecha_impresion, observacion, fecha_terminacion, realizada, id_op, tiempo, id_edificio, id_piso, id_sector, id_ubicacion, id_activo];
+    const t = await executeQuery(query, params, res, "Orden guardada con éxito.");
+    const id_orden = t.insertId;
+    if (Array.isArray(id_tarea)) {
+        for (let d of id_tarea) {
+            const query2 = `INSERT INTO Descripcion_Orden (id_orden, id_descripcion) VALUES (?, ?)`;
+            try {
+                await db.execute(query2, [id_orden, d]);
+            } catch (error) {
+                console.log("no se pudo guardar las tareas de la orden: ", error);
+            }
+            
+        }
+    }
 }
 
 export const updateODT = (req, res) => {
