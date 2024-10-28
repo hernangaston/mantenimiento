@@ -1,5 +1,5 @@
 import { executeQuery } from "../helpers/helpFunctions.js";
-
+import { db } from "../db.js";
 
 export const listaDescripcion = (req, res) => {
     const query = 'SELECT * FROM Descripcion';
@@ -34,8 +34,18 @@ export const deleteDescripcion = (req, res) => {
 }
 
 export const descripcionByTtarea = (req, res) => {
-    const {id} = req.params;
+    const { id } = req.params;
     const query = 'SELECT * FROM Descripcion WHERE id_tita = ?'
     executeQuery(query, [id], res);
 }
 
+export const descripcionByOrden = async (req, res) => {
+    const { id } = req.params;
+    const query = 'SELECT d.descripcion FROM Descripcion_Orden do JOIN Descripcion d ON do.id_descripcion = d.id_descripcion WHERE do.id_orden = ?'; 
+    try {
+        const [result] = await db.execute(query, [id]);
+        res.json([result]);
+    } catch (error) {
+        console.log("no se pudo guardar las tareas de la orden: ", error);
+    }
+}
