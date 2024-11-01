@@ -1,6 +1,24 @@
 import { executeQuery, executeQueryRes } from "../helpers/helpFunctions.js";
 import { db } from "../db.js";
-
+/**
+ * @swagger
+ * tags:
+ *   name: Ordenes
+ *   description: Endpoints para gestionar órdenes de trabajo.
+ * 
+ * /ordenes-trabajo:
+ *   get:
+ *     summary: Obtiene una lista de órdenes de trabajo.
+ *     responses:
+ *       200:
+ *         description: Lista de órdenes de trabajo.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ */
 export const listaODT = (req, res) => {
     const query = `
     SELECT 
@@ -19,7 +37,26 @@ export const listaODT = (req, res) => {
         `;
     executeQuery(query, [], res);
 }
-
+/**
+ * @swagger
+ * /ordenes-trabajo/{id}:
+ *   get:
+ *     summary: Obtiene una orden de trabajo específica por ID.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID de la orden de trabajo
+ *     responses:
+ *       200:
+ *         description: Información de la orden de trabajo.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ */
 export const oDt = (req, res) => {
     const { id } = req.params;
     const query = `
@@ -40,7 +77,50 @@ export const oDt = (req, res) => {
         `;
     executeQuery(query, [id], res);
 }
-
+/**
+ * @swagger
+ * /ordenes-trabajo:
+ *   post:
+ *     summary: Crea una nueva orden de trabajo.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               fecha_impresion:
+ *                 type: string
+ *                 format: date
+ *               observacion:
+ *                 type: string
+ *               fecha_terminacion:
+ *                 type: string
+ *                 format: date
+ *               realizada:
+ *                 type: boolean
+ *               id_op:
+ *                 type: integer
+ *               id_edificio:
+ *                 type: integer
+ *               id_piso:
+ *                 type: integer
+ *               id_sector:
+ *                 type: integer
+ *               id_tarea:
+ *                 type: array
+ *                 items:
+ *                   type: integer
+ *               id_ubicacion:
+ *                 type: integer
+ *               id_activo:
+ *                 type: integer
+ *               tiempo:
+ *                 type: integer
+ *     responses:
+ *       201:
+ *         description: Orden de trabajo creada exitosamente.
+ */
 export const nuevaODT = async (req, res) => {
     const { fecha_impresion, observacion, fecha_terminacion, realizada, id_op, id_edificio, id_piso, id_sector,id_tarea, id_ubicacion, id_activo, tiempo } = req.body;
     const query = 'INSERT INTO Orden_trabajo (fecha_impresion, observacion, fecha_terminacion, realizada, id_op, tiempo, id_edificio, id_piso, id_sector, id_ubicacion, id_activo, fecha_creacion) VALUES (?,?,?,?,?,?,?,?,?,?,?, NOW())';
@@ -60,7 +140,53 @@ export const nuevaODT = async (req, res) => {
         }
     }
 }
-
+/**
+ * @swagger
+ * /ordenes-trabajo/{id}:
+ *   put:
+ *     summary: Actualiza una orden de trabajo existente.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID de la orden de trabajo a actualizar
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               fecha_impresion:
+ *                 type: string
+ *                 format: date
+ *               observacion:
+ *                 type: string
+ *               fecha_terminacion:
+ *                 type: string
+ *                 format: date
+ *               realizada:
+ *                 type: boolean
+ *               id_op:
+ *                 type: integer
+ *               tiempo:
+ *                 type: integer
+ *               id_edificio:
+ *                 type: integer
+ *               id_piso:
+ *                 type: integer
+ *               id_sector:
+ *                 type: integer
+ *               id_ubicacion:
+ *                 type: integer
+ *               id_activo:
+ *                 type: integer
+ *     responses:
+ *       200:
+ *         description: Orden de trabajo actualizada exitosamente.
+ */
 export const updateODT = (req, res) => {
     const { id } = req.params;
     const { fecha_impresion, observacion, fecha_terminacion, realizada, id_op, id_edificio, id_piso, id_sector, id_ubicacion, id_activo, tiempo } = req.body;
@@ -68,7 +194,22 @@ export const updateODT = (req, res) => {
         id_edificio = IFNULL(?, id_edificio), id_piso = IFNULL(?,id_piso), id_sector = IFNULL(?,id_sector), id_ubicacion = IFNULL(?,id_ubicacion), id_activo = IFNULL(?, id_activo) WHERE id_ot = ?';
     executeQuery(query, [fecha_impresion, observacion, fecha_terminacion, realizada, id_op, tiempo, id_edificio, id_piso, id_sector, id_ubicacion, id_activo, id], res, "Orden de trabajo actualizada.")
 }
-
+/**
+ * @swagger
+ * /ordenes-trabajo/{id}:
+ *   delete:
+ *     summary: Elimina una orden de trabajo por ID.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID de la orden de trabajo a eliminar
+ *     responses:
+ *       200:
+ *         description: Orden de trabajo eliminada exitosamente.
+ */
 export const deleteODT = (req, res) => {
     const { id } = req.params;
     const query = 'DELETE FROM Orden_trabajo WHERE id_ot = ?';

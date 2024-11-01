@@ -1,6 +1,11 @@
 import express from "express";
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
+import swaggerUi from 'swagger-ui-express';
+
+import swaggerDocsOtrabajo from './documents/ordenDeTrabajoDoc.js';
+import swaggerDocsActivo from './documents/activoDoc.js';
+
 
 import loginRoutes from "./routes/login.routes.js";
 import edificioRoutes from "./routes/edificio.routes.js";
@@ -37,6 +42,9 @@ app.use("/api/orden", odtRouter);
 app.use("/api/operario", operarioRouter);
 app.use("/api/descripcion", descRouter);
 
+//app.use('/api-docs/activo', swaggerUi.serve, swaggerUi.setup(swaggerDocsActivo));
+
+app.use('/api-docs/orden', swaggerUi.serve, swaggerUi.setup(swaggerDocsOtrabajo));
 
 
 app.use((req, res, next) => {
