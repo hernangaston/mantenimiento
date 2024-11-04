@@ -23,7 +23,7 @@ export const listaODT = (req, res) => {
     const query = `
     SELECT 
         ot.id_ot, ot.fecha_impresion, ot.observacion, ot.fecha_terminacion, ot.realizada, ot.id_op, ot.tiempo,
-        e.Nombre AS nombre_edificio, e.Direccion AS direccion_edificio,
+        e.Nombre AS nombre_edificio, e.Direccion AS direccion_edificio, ot.id_tita AS idTita, tt.nombre AS nombreTita,
         p.nombre AS nombre_piso, s.nombre AS nombre_sector, u.nombre AS nombre_ubicacion, a.nombre AS nombre_activo,
         ot.fecha_creacion, t.nombre AS nombre_tag, t.tag_deminutivo AS diminutivo , oper.nombre AS nombre_operario, oper.apellido AS apellido_operario 
         FROM Orden_trabajo ot
@@ -33,6 +33,7 @@ export const listaODT = (req, res) => {
         LEFT JOIN Ubicacion u ON ot.id_ubicacion = u.id_ubicacion
         LEFT JOIN Activo a ON ot.id_activo = a.id_activo
         LEFT JOIN Operario oper ON ot.id_op = oper.id_op
+        LEFT JOIN Tipo_tarea tt ON ot.id_tita = tt.id_tita
         LEFT JOIN Tag t ON a.id_tag = t.id_tag;
         `;
     executeQuery(query, [], res);
@@ -62,7 +63,7 @@ export const oDt = (req, res) => {
     const query = `
     SELECT 
         ot.id_ot, ot.fecha_impresion, ot.observacion, ot.fecha_terminacion, ot.realizada, ot.id_op, ot.tiempo,
-        e.Nombre AS nombre_edificio, e.Direccion AS direccion_edificio,
+        e.Nombre AS nombre_edificio, e.Direccion AS direccion_edificio,ot.id_tita AS idTita, tt.nombre AS nombreTita,
         p.nombre AS nombre_piso, s.nombre AS nombre_sector, u.nombre AS nombre_ubicacion, a.nombre AS nombre_activo,
         ot.fecha_creacion, t.nombre AS nombre_tag, t.tag_deminutivo AS diminutivo , oper.nombre AS nombre_operario, oper.apellido AS apellido_operario 
         FROM Orden_trabajo ot
@@ -73,6 +74,7 @@ export const oDt = (req, res) => {
         LEFT JOIN Activo a ON ot.id_activo = a.id_activo
         LEFT JOIN Operario oper ON ot.id_op = oper.id_op
         LEFT JOIN Tag t ON a.id_tag = t.id_tag
+        LEFT JOIN Tipo_tarea tt ON ot.id_tita = tt.id_tita
         WHERE ot.id_ot = ?;
         `;
     executeQuery(query, [id], res);
@@ -122,9 +124,9 @@ export const oDt = (req, res) => {
  *         description: Orden de trabajo creada exitosamente.
  */
 export const nuevaODT = async (req, res) => {
-    const { fecha_impresion, observacion, fecha_terminacion, realizada, id_op, id_edificio, id_piso, id_sector,id_tarea, id_ubicacion, id_activo, tiempo } = req.body;
-    const query = 'INSERT INTO Orden_trabajo (fecha_impresion, observacion, fecha_terminacion, realizada, id_op, tiempo, id_edificio, id_piso, id_sector, id_ubicacion, id_activo, fecha_creacion) VALUES (?,?,?,?,?,?,?,?,?,?,?, NOW())';
-    const params = [fecha_impresion, observacion, fecha_terminacion, realizada, id_op, tiempo, id_edificio, id_piso, id_sector, id_ubicacion, id_activo];
+    const { fecha_impresion, observacion, fecha_terminacion, realizada, id_op, id_edificio, id_piso, id_sector,id_tarea, id_ubicacion, id_activo, tiempo, id_tita } = req.body;
+    const query = 'INSERT INTO Orden_trabajo (fecha_impresion, observacion, fecha_terminacion, realizada, id_op, tiempo, id_edificio, id_piso, id_sector, id_ubicacion, id_activo, id_tita, fecha_creacion) VALUES (?,?,?,?,?,?,?,?,?,?,?,?, NOW())';
+    const params = [fecha_impresion, observacion, fecha_terminacion, realizada, id_op, tiempo, id_edificio, id_piso, id_sector, id_ubicacion, id_activo, id_tita];
     
     const t = await executeQueryRes(query, params);
     const id_orden = t.insertId;
