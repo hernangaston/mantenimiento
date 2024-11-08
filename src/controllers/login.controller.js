@@ -3,14 +3,20 @@ import jwt from 'jsonwebtoken';
 import { db } from "../db.js";
 
 export const registro = async (req, res) => {
-    const { email, password } = req.body;
+    const { email, rol, password } = req.body;
     if (!email || !password) return res.status(400).json({ message: 'Email y contraseña son requeridos' });
     try {
         const [rows] = await db.query('SELECT * FROM Usuario WHERE email = ?', [email]);
         if (rows.length > 0) return res.status(400).json({ message: 'El usuario ya existe' });
         const hashedPassword = await bcrypt.hash(password, 10);
-        await db.query('INSERT INTO Usuario (email, password) VALUES (?, ?)', [email, hashedPassword]);
-        res.status(201).json({ message: 'Usuario registrado exitosamente' });
+        if(rol === '' || rol === null){
+            await db.query('INSERT INTO Usuario (email,rol, password) VALUES (?, ?, ?)', [email,'admin', hashedPassword]);
+            res.status(201).json({ message: 'Usuario registrado exitosamente' });
+        }else{
+            await db.query('INSERT INTO Usuario (email,rol, password) VALUES (?, ?, ?)', [email,rol, hashedPassword]);
+            res.status(201).json({ message: 'Usuario registrado exitosamente' });
+        }
+        
     } catch (error) {
         res.status(500).json({ message: 'Error al registrar el usuario'+error });
     }
@@ -33,7 +39,7 @@ export const login = async (req, res) => {
 
         const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET, { expiresIn: '15 mins' });
         
-        res.json({message: 'sesion iniciada', token: token});
+        res.json({message: 'sesion iniciada', token: token, user:{email: user.email, rol: user.rol}});
 
     } catch (error) {
         console.log(error);
