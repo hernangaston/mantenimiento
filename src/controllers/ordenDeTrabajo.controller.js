@@ -20,23 +20,52 @@ import { db } from "../db.js";
  *                 type: object
  */
 export const listaODT = (req, res) => {
-    const query = `
+    const { id_op, fecha_creacion, id_activo, id_edificio, realizada } = req.query;
+
+    // Consulta base
+    let query = `
     SELECT 
-        ot.id_ot, ot.fecha_impresion, ot.observacion, ot.fecha_terminacion, ot.realizada, ot.id_op, ot.tiempo,
-        e.Nombre AS nombre_edificio, e.Direccion AS direccion_edificio, ot.id_tita AS idTita, tt.nombre AS nombreTita,
-        p.nombre AS nombre_piso, s.nombre AS nombre_sector, u.nombre AS nombre_ubicacion, a.nombre AS nombre_activo,
-        ot.fecha_creacion, t.nombre AS nombre_tag, t.tag_deminutivo AS diminutivo , oper.nombre AS nombre_operario, oper.apellido AS apellido_operario 
-        FROM Orden_trabajo ot
-        LEFT JOIN Edificio e ON ot.id_edificio = e.id_edificio
-        LEFT JOIN Piso p ON ot.id_piso = p.id_piso
-        LEFT JOIN Sector s ON ot.id_sector = s.id_sector
-        LEFT JOIN Ubicacion u ON ot.id_ubicacion = u.id_ubicacion
-        LEFT JOIN Activo a ON ot.id_activo = a.id_activo
-        LEFT JOIN Operario oper ON ot.id_op = oper.id_op
-        LEFT JOIN Tipo_tarea tt ON ot.id_tita = tt.id_tita
-        LEFT JOIN Tag t ON a.id_tag = t.id_tag;
-        `;
-    executeQuery(query, [], res);
+      ot.id_ot, ot.fecha_impresion, ot.observacion, ot.fecha_terminacion, ot.realizada, ot.id_op, ot.tiempo,
+      e.Nombre AS nombre_edificio, e.Direccion AS direccion_edificio, ot.id_tita AS idTita, tt.nombre AS nombreTita,
+      p.nombre AS nombre_piso, s.nombre AS nombre_sector, u.nombre AS nombre_ubicacion, a.nombre AS nombre_activo,
+      ot.fecha_creacion, t.nombre AS nombre_tag, t.tag_deminutivo AS diminutivo, oper.nombre AS nombre_operario, oper.apellido AS apellido_operario 
+    FROM Orden_trabajo ot
+    LEFT JOIN Edificio e ON ot.id_edificio = e.id_edificio
+    LEFT JOIN Piso p ON ot.id_piso = p.id_piso
+    LEFT JOIN Sector s ON ot.id_sector = s.id_sector
+    LEFT JOIN Ubicacion u ON ot.id_ubicacion = u.id_ubicacion
+    LEFT JOIN Activo a ON ot.id_activo = a.id_activo
+    LEFT JOIN Operario oper ON ot.id_op = oper.id_op
+    LEFT JOIN Tipo_tarea tt ON ot.id_tita = tt.id_tita
+    LEFT JOIN Tag t ON a.id_tag = t.id_tag
+    WHERE 1=1
+  `;
+
+    // Array para los parámetros de la consulta
+    let queryParams = [];
+
+    // Condiciones dinámicas según los filtros recibidos
+    if (id_op) {
+        query += ' AND ot.id_op = ?';
+        queryParams.push(id_op);
+    }
+    if (fecha_creacion) {
+        query += ' AND DATE(ot.fecha_creacion) = ?';
+        queryParams.push(fecha_creacion);
+    }
+    if (id_activo) {
+        query += ' AND ot.id_activo = ?';
+        queryParams.push(id_activo);
+    }
+    if (id_edificio) {
+        query += ' AND ot.id_edificio = ?';
+        queryParams.push(id_edificio);
+    }
+    if (realizada !== undefined) {
+        query += ' AND ot.realizada = ?';
+        queryParams.push(realizada);
+    }
+    executeQuery(query, queryParams, res);
 }
 /**
  * @swagger
@@ -124,10 +153,10 @@ export const oDt = (req, res) => {
  *         description: Orden de trabajo creada exitosamente.
  */
 export const nuevaODT = async (req, res) => {
-    const { fecha_impresion, observacion, fecha_terminacion, realizada, id_op, id_edificio, id_piso, id_sector,id_tarea, id_ubicacion, id_activo, tiempo, id_tita } = req.body;
+    const { fecha_impresion, observacion, fecha_terminacion, realizada, id_op, id_edificio, id_piso, id_sector, id_tarea, id_ubicacion, id_activo, tiempo, id_tita } = req.body;
     const query = 'INSERT INTO Orden_trabajo (fecha_impresion, observacion, fecha_terminacion, realizada, id_op, tiempo, id_edificio, id_piso, id_sector, id_ubicacion, id_activo, id_tita, fecha_creacion) VALUES (?,?,?,?,?,?,?,?,?,?,?,?, NOW())';
     const params = [fecha_impresion, observacion, fecha_terminacion, realizada, id_op, tiempo, id_edificio, id_piso, id_sector, id_ubicacion, id_activo, id_tita];
-    
+
     const t = await executeQueryRes(query, params);
     const id_orden = t.insertId;
     if (Array.isArray(id_tarea)) {
@@ -138,7 +167,7 @@ export const nuevaODT = async (req, res) => {
             } catch (error) {
                 console.log("no se pudo guardar las tareas de la orden: ", error);
             }
-            
+
         }
     }
 }
