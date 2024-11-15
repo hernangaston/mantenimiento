@@ -9,7 +9,7 @@ const swaggerOptions = {
             description: 'Documentación de la API de Órdenes de Trabajo'
         },
     },
-    apis: ['./src/controllers/ordenDeTrabajo.controller.js', './src/controllers/activo.controller.js']
+    apis: ['./src/controllers/ordenDeTrabajo.controller.js']
 };
 
 const swaggerDocsOtrabajo = swaggerJsdoc(swaggerOptions);
