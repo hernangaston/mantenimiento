@@ -6,7 +6,7 @@ import { executeQuery } from "../helpers/helpFunctions.js";
  *   name: Activos
  *   description: Endpoints para gestionar activos.
  * 
- * /activos:
+ * /api/activo:
  *   get:
  *     summary: Obtiene una lista de todos los activos.
  *     responses:
@@ -25,7 +25,7 @@ export const listaActivo = (req, res) => {
 }
 /**
  * @swagger
- * /activos/{id}:
+ * /api/activo/{id}:
  *   get:
  *     summary: Obtiene un activo específico por ID.
  *     parameters:
@@ -50,7 +50,7 @@ export const activo = (req, res) => {
 }
 /**
  * @swagger
- * /activos:
+ * /api/activo:
  *   post:
  *     summary: Crea un nuevo activo.
  *     requestBody:
@@ -82,12 +82,12 @@ export const nuevoActivo = (req, res) => {
 }
 /**
  * @swagger
- * /activos/{id_activo}:
- *   put:
+ * /api/activo/{id}:
+ *   patch:
  *     summary: Actualiza un activo existente.
  *     parameters:
  *       - in: path
- *         name: id_activo
+ *         name: id
  *         required: true
  *         schema:
  *           type: integer
@@ -124,12 +124,12 @@ export const updateActivo = (req, res) => {
 }
 /**
  * @swagger
- * /activos/{id_activo}:
+ * /api/activo/{id}:
  *   delete:
  *     summary: Elimina un activo por ID.
  *     parameters:
  *       - in: path
- *         name: id_activo
+ *         name: id
  *         required: true
  *         schema:
  *           type: integer
@@ -146,7 +146,7 @@ export const deleteActivo = (req, res) => {
 
 /**
  * @swagger
- * /activos/{id}/tareas:
+ * /api/activo/{id}/tarea:
  *   get:
  *     summary: Obtiene las tareas asociadas a un activo por ID.
  *     parameters:
@@ -177,7 +177,7 @@ export const tareaByActivo = (req, res) => {
 }
 /**
  * @swagger
- * /activos/{id}/tags:
+ * /api/activo/{id}/tag:
  *   get:
  *     summary: Obtiene los tags asociados a un activo por ID.
  *     parameters:

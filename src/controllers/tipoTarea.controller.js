@@ -2,7 +2,7 @@ import { executeQuery } from "../helpers/helpFunctions.js";
 
 /**
  * @swagger
- * /tipos_tarea:
+ * /api/tipoTarea:
  *   get:
  *     summary: Obtiene una lista de todos los tipos de tarea.
  *     responses:
@@ -16,7 +16,7 @@ export const listaTipoTarea = (req, res) => {
 
 /**
  * @swagger
- * /tipos_tarea/{id}:
+ * /api/tipoTarea/{id}:
  *   get:
  *     summary: Obtiene un tipo de tarea por ID.
  *     parameters:
@@ -38,7 +38,7 @@ export const tipoTarea = (req, res) => {
 
 /**
  * @swagger
- * /tipos_tarea:
+ * /api/tipoTarea:
  *   post:
  *     summary: Crea un nuevo tipo de tarea.
  *     requestBody:
@@ -64,8 +64,8 @@ export const nuevoTipoTarea = (req, res) => {
 
 /**
  * @swagger
- * /tipos_tarea/{id}:
- *   put:
+ * /api/tipoTarea/{id}:
+ *   patch:
  *     summary: Actualiza un tipo de tarea.
  *     parameters:
  *       - in: path
@@ -98,7 +98,7 @@ export const updateTipoTarea = (req, res) => {
 
 /**
  * @swagger
- * /tipos_tarea/{id}:
+ * /api/tipoTarea/{id}:
  *   delete:
  *     summary: Elimina un tipo de tarea.
  *     parameters:

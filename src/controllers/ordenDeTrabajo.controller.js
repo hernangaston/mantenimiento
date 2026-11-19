@@ -6,7 +6,7 @@ import { db } from "../db.js";
  *   name: Ordenes
  *   description: Endpoints para gestionar órdenes de trabajo.
  * 
- * /ordenes-trabajo:
+ * /api/orden:
  *   get:
  *     summary: Obtiene una lista de órdenes de trabajo.
  *     responses:
@@ -69,7 +69,7 @@ export const listaODT = (req, res) => {
 }
 /**
  * @swagger
- * /ordenes-trabajo/{id}:
+ * /api/orden/{id}:
  *   get:
  *     summary: Obtiene una orden de trabajo específica por ID.
  *     parameters:
@@ -110,7 +110,7 @@ export const oDt = (req, res) => {
 }
 /**
  * @swagger
- * /ordenes-trabajo:
+ * /api/orden:
  *   post:
  *     summary: Crea una nueva orden de trabajo.
  *     requestBody:
@@ -173,8 +173,8 @@ export const nuevaODT = async (req, res) => {
 }
 /**
  * @swagger
- * /ordenes-trabajo/{id}:
- *   put:
+ * /api/orden/{id}:
+ *   patch:
  *     summary: Actualiza una orden de trabajo existente.
  *     parameters:
  *       - in: path
@@ -227,7 +227,7 @@ export const updateODT = (req, res) => {
 }
 /**
  * @swagger
- * /ordenes-trabajo/{id}:
+ * /api/orden/{id}:
  *   delete:
  *     summary: Elimina una orden de trabajo por ID.
  *     parameters:

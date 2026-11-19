@@ -2,7 +2,7 @@ import { executeQuery } from "../helpers/helpFunctions.js";
 
 /**
  * @swagger
- * /edificio:
+ * /api/edificio:
  *   get:
  *     summary: Obtiene la lista de todos los edificios
  *     responses:
@@ -36,7 +36,7 @@ export const listaEdificio = (req, res) => {
 
 /**
  * @swagger
- * /edificio/{id}:
+ * /api/edificio/{id}:
  *   get:
  *     summary: Obtiene un edificio por su ID
  *     parameters:
@@ -76,7 +76,7 @@ export const edificio = (req, res) => {
 
 /**
  * @swagger
- * /edificio:
+ * /api/edificio:
  *   post:
  *     summary: Crea un nuevo edificio
  *     requestBody:
@@ -106,7 +106,7 @@ export const nuevoEdificio = (req, res) => {
 
 /**
  * @swagger
- * /edificio/{id}:
+ * /api/edificio/{id}:
  *   put:
  *     summary: Actualiza un edificio existente
  *     parameters:
@@ -144,7 +144,7 @@ export const actualizaEdificio = (req, res) => {
 
 /**
  * @swagger
- * /edificio/{id}:
+ * /api/edificio/{id}:
  *   delete:
  *     summary: Elimina un edificio por ID
  *     parameters:

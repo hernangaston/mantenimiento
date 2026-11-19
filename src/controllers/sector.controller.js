@@ -2,7 +2,7 @@ import { executeQuery } from "../helpers/helpFunctions.js";
 
 /**
  * @swagger
- * /sectores:
+ * /api/sector:
  *   get:
  *     summary: Retrieves a list of all sectores.
  *     responses:
@@ -16,7 +16,7 @@ export const listaSector = (req, res) => {
 
 /**
  * @swagger
- * /sectores/{id}:
+ * /api/sector/{id}:
  *   get:
  *     summary: Retrieves a sector by ID.
  *     parameters:
@@ -38,7 +38,7 @@ export const sector = (req, res) => {
 
 /**
  * @swagger
- * /sectores:
+ * /api/sector:
  *   post:
  *     summary: Creates a new sector.
  *     requestBody:
@@ -68,7 +68,7 @@ export const nuevoSector = (req, res) => {
 
 /**
  * @swagger
- * /sectores/{id}:
+ * /api/sector/{id}:
  *   put:
  *     summary: Updates a sector.
  *     parameters:
@@ -106,7 +106,7 @@ export const updateSector = (req, res) => {
 
 /**
  * @swagger
- * /sectores/{id}:
+ * /api/sector/{id}:
  *   delete:
  *     summary: Deletes a sector.
  *     parameters:

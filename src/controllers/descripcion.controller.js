@@ -3,7 +3,7 @@ import { db } from "../db.js";
 
 /**
  * @swagger
- * /descripcion:
+ * /api/descripcion:
  *   get:
  *     summary: Obtiene la lista de todas las descripciones
  *     responses:
@@ -32,7 +32,7 @@ export const listaDescripcion = (req, res) => {
 
 /**
  * @swagger
- * /descripcion/{id}:
+ * /api/descripcion/{id}:
  *   get:
  *     summary: Obtiene una descripción por su ID
  *     parameters:
@@ -67,7 +67,7 @@ export const descripcion = (req, res) => {
 
 /**
  * @swagger
- * /descripcion:
+ * /api/descripcion:
  *   post:
  *     summary: Crea una nueva descripción
  *     requestBody:
@@ -95,12 +95,12 @@ export const nuevoDescripcion = (req, res) => {
 
 /**
  * @swagger
- * /descripcion/{id_descripcion}:
- *   put:
+ * /api/descripcion/{id}:
+ *   patch:
  *     summary: Actualiza una descripción existente
  *     parameters:
  *       - in: path
- *         name: id_descripcion
+ *         name: id
  *         schema:
  *           type: integer
  *         required: true
@@ -131,12 +131,12 @@ export const updateDescripcion = (req, res) => {
 
 /**
  * @swagger
- * /descripcion/{id_descripcion}:
+ * /api/descripcion/{id}:
  *   delete:
  *     summary: Elimina una descripción por ID
  *     parameters:
  *       - in: path
- *         name: id_descripcion
+ *         name: id
  *         schema:
  *           type: integer
  *         required: true
@@ -153,7 +153,7 @@ export const deleteDescripcion = (req, res) => {
 
 /**
  * @swagger
- * /descripcion/tarea/{id}:
+ * /api/descripcion/{id}/tita:
  *   get:
  *     summary: Obtiene descripciones por ID de tipo de tarea
  *     parameters:
@@ -190,7 +190,7 @@ export const descripcionByTtarea = (req, res) => {
 
 /**
  * @swagger
- * /descripcion/orden/{id}:
+ * /api/descripcion/{id}/orden:
  *   get:
  *     summary: Obtiene descripciones por ID de orden
  *     parameters:

@@ -2,7 +2,7 @@ import { executeQuery } from "../helpers/helpFunctions.js";
 
 /**
  * @swagger
- * /tags:
+ * /api/tag:
  *   post:
  *     summary: Creates a new tag.
  *     requestBody:
@@ -28,7 +28,7 @@ export const nuevoTag = (req, res) => {
 
 /**
  * @swagger
- * /tags/{id}:
+ * /api/tag/{id}:
  *   get:
  *     summary: Retrieves a tag by ID.
  *     parameters:
@@ -50,7 +50,7 @@ export const tag = (req, res) => {
 
 /**
  * @swagger
- * /tags:
+ * /api/tag:
  *   get:
  *     summary: Retrieves a list of all tags.
  *     responses:
@@ -64,8 +64,8 @@ export const tags = (req, res) => {
 
 /**
  * @swagger
- * /tags/{id}:
- *   put:
+ * /api/tag/{id}:
+ *   patch:
  *     summary: Updates a tag.
  *     parameters:
  *       - in: path
@@ -98,7 +98,7 @@ export const updateTag = async (req, res) => {
 
 /**
  * @swagger
- * /tags/{id}:
+ * /api/tag/{id}:
  *   delete:
  *     summary: Deletes a tag.
  *     parameters:
@@ -120,7 +120,7 @@ export const deleteTag = async (req, res) => {
 
 /**
  * @swagger
- * /tags/{id}/activos:
+ * /api/tag/{id}/activo:
  *   get:
  *     summary: Retrieves activos associated with a tag.
  *     parameters:

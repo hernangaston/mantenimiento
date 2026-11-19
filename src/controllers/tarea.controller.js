@@ -2,7 +2,7 @@ import { executeQuery } from "../helpers/helpFunctions.js";
 
 /**
  * @swagger
- * /tareas:
+ * /api/tarea:
  *   get:
  *     summary: Retrieves a list of all tareas.
  *     responses:
@@ -16,7 +16,7 @@ export const listaTarea = (req, res) => {
 
 /**
  * @swagger
- * /tareas/{id}:
+ * /api/tarea/{id}:
  *   get:
  *     summary: Retrieves a tarea by ID.
  *     parameters:
@@ -38,7 +38,7 @@ export const tarea = (req, res) => {
 
 /**
  * @swagger
- * /tareas:
+ * /api/tarea:
  *   post:
  *     summary: Creates a new tarea.
  *     requestBody:
@@ -64,8 +64,8 @@ export const nuevaTarea = (req, res) => {
 
 /**
  * @swagger
- * /tareas/{id}:
- *   put:
+ * /api/tarea/{id}:
+ *   patch:
  *     summary: Updates a tarea.
  *     parameters:
  *       - in: path
@@ -98,7 +98,7 @@ export const updateTarea = (req, res) => {
 
 /**
  * @swagger
- * /tareas/{id}:
+ * /api/tarea/{id}:
  *   delete:
  *     summary: Deletes a tarea.
  *     parameters:

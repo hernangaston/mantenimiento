@@ -2,7 +2,7 @@ import { executeQuery } from "../helpers/helpFunctions.js";
 
 /**
  * @swagger
- * /operarios:
+ * /api/operario:
  *   get:
  *     summary: Retrieves a list of all operarios.
  *     responses:
@@ -16,7 +16,7 @@ export const listaOperario = (req, res) => {
 
 /**
  * @swagger
- * /operarios/{id}:
+ * /api/operario/{id}:
  *   get:
  *     summary: Retrieves an operario by ID.
  *     parameters:
@@ -38,7 +38,7 @@ export const operario = (req, res) => {
 
 /**
  * @swagger
- * /operarios:
+ * /api/operario:
  *   post:
  *     summary: Creates a new operario.
  *     requestBody:
@@ -64,8 +64,8 @@ export const nuevoOperario = (req, res) => {
 
 /**
  * @swagger
- * /operarios/{id}:
- *   put:
+ * /api/operario/{id}:
+ *   patch:
  *     summary: Updates an operario.
  *     parameters:
  *       - in: path
@@ -98,7 +98,7 @@ export const updateOperario = (req, res) => {
 
 /**
  * @swagger
- * /operarios/{id}:
+ * /api/operario/{id}:
  *   delete:
  *     summary: Deletes an operario.
  *     parameters:
