@@ -2,7 +2,7 @@ import { executeQuery } from "../helpers/helpFunctions.js";
 
 /**
  * @swagger
- * /activoTarea/{id}:
+ * /api/activoTarea/{id}:
  *   get:
  *     summary: Obtiene un activo-tarea por ID
  *     parameters:
@@ -35,7 +35,7 @@ export const activoTarea = (req, res) => {
 
 /**
  * @swagger
- * /activoTarea:
+ * /api/activoTarea:
  *   get:
  *     summary: Lista todos los registros de activo-tarea
  *     responses:
@@ -62,7 +62,7 @@ export const listaActivoTarea = (req, res) => {
 
 /**
  * @swagger
- * /activoTarea:
+ * /api/activoTarea:
  *   post:
  *     summary: Crea un nuevo registro de activo-tarea
  *     requestBody:
@@ -90,8 +90,8 @@ export const nuevoActivoTarea = (req, res) => {
 
 /**
  * @swagger
- * /activoTarea/{id}:
- *   put:
+ * /api/activoTarea/{id}:
+ *   patch:
  *     summary: Actualiza un registro de activo-tarea existente
  *     parameters:
  *       - in: path
@@ -126,7 +126,7 @@ export const updateActivoTarea = (req, res) => {
 
 /**
  * @swagger
- * /activoTarea/{id}:
+ * /api/activoTarea/{id}:
  *   delete:
  *     summary: Elimina un activo-tarea por ID
  *     parameters:

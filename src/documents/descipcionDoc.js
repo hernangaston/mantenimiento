@@ -2,6 +2,8 @@ import swaggerJsdoc from 'swagger-jsdoc';
 
 const swaggerOptionsA = {
     swaggerDefinition: {
+        components: { securitySchemes: { bearerAuth: { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' } } },
+        security: [{ bearerAuth: [] }],
         openapi: '3.0.0',
         info: {
             title: 'API de Descripcion',

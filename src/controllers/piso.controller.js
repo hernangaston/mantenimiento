@@ -2,7 +2,7 @@ import { executeQuery } from "../helpers/helpFunctions.js";
 
 /**
  * @swagger
- * /pisos:
+ * /api/piso:
  *   get:
  *     summary: Retrieves a list of all pisos.
  *     responses:
@@ -16,7 +16,7 @@ export const listaPiso = (req, res) => {
 
 /**
  * @swagger
- * /pisos/{id}:
+ * /api/piso/{id}:
  *   get:
  *     summary: Retrieves a piso by ID.
  *     parameters:
@@ -38,7 +38,7 @@ export const piso = (req, res) => {
 
 /**
  * @swagger
- * /pisos:
+ * /api/piso:
  *   post:
  *     summary: Creates a new piso.
  *     requestBody:
@@ -66,8 +66,8 @@ export const nuevoPiso = (req, res) => {
 
 /**
  * @swagger
- * /pisos/{id}:
- *   put:
+ * /api/piso/{id}:
+ *   patch:
  *     summary: Updates a piso.
  *     parameters:
  *       - in: path
@@ -102,7 +102,7 @@ export const updatePiso = (req, res) => {
 
 /**
  * @swagger
- * /pisos/{id}:
+ * /api/piso/{id}:
  *   delete:
  *     summary: Deletes a piso.
  *     parameters:

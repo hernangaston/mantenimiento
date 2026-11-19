@@ -2,7 +2,7 @@ import { executeQuery } from "../helpers/helpFunctions.js";
 
 /**
  * @swagger
- * /ubicaciones:
+ * /api/ubicacion:
  *   get:
  *     summary: Obtiene una lista de todas las ubicaciones.
  *     responses:
@@ -16,7 +16,7 @@ export const listaUbicacion = (req, res) => {
 
 /**
  * @swagger
- * /ubicaciones/{id}:
+ * /api/ubicacion/{id}:
  *   get:
  *     summary: Obtiene una ubicación por su ID.
  *     parameters:
@@ -38,7 +38,7 @@ export const ubicacion = (req, res) => {
 
 /**
  * @swagger
- * /ubicaciones:
+ * /api/ubicacion:
  *   post:
  *     summary: Crea una nueva ubicación.
  *     requestBody:
@@ -64,8 +64,8 @@ export const nuevaUbicacion = (req, res) => {
 
 /**
  * @swagger
- * /ubicaciones/{id}:
- *   put:
+ * /api/ubicacion/{id}:
+ *   patch:
  *     summary: Actualiza una ubicación.
  *     parameters:
  *       - in: path
@@ -98,7 +98,7 @@ export const updateUbicacion = (req, res) => {
 
 /**
  * @swagger
- * /ubicaciones/{id}:
+ * /api/ubicacion/{id}:
  *   delete:
  *     summary: Elimina una ubicación.
  *     parameters:

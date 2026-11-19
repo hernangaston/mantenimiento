@@ -115,7 +115,7 @@ export const login = async (req, res) => {
 
 /**
  * @swagger
- * /protect:
+ * /protected:
  *   get:
  *     summary: Endpoint protegido (requiere token de autenticación)
  *     security:
@@ -130,19 +130,6 @@ export const protect = (req, res) => {
     res.json({ message: 'This is a protected route' });
 };
 
-/**
- * @swagger
- * /verifyToken:
- *   get:
- *     summary: Verifica la validez de un token de autenticación
- *     security:
- *       - bearerAuth: []
- *     responses:
- *       '200':
- *         description: Token válido, acceso permitido
- *       '401':
- *         description: No se proporcionó un token, o es inválido o está vencido
- */
 export const verifyToken = (req, res, next) => {
     const header = req.headers.authorization || '';
     const [tipo, token] = header.split(' ');
