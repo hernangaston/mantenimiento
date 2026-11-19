@@ -38,7 +38,9 @@ export const registro = async (req, res) => {
         const [rows] = await db.query('SELECT * FROM Usuario WHERE email = ?', [email]);
         if (rows.length > 0) return res.status(400).json({ message: 'El usuario ya existe' });
         const hashedPassword = await bcrypt.hash(password, 10);
-        const userRol = rol || 'admin';
+        // El registro público nunca crea administradores: un admin se asigna directamente en la base.
+        const ROLES_PERMITIDOS = ['usuario', 'operario'];
+        const userRol = ROLES_PERMITIDOS.includes(rol) ? rol : 'usuario';
         await db.query('INSERT INTO Usuario (email, rol, password) VALUES (?, ?, ?)', [email, userRol, hashedPassword]);
         res.status(201).json({ message: 'Usuario registrado exitosamente' });
     } catch (error) {
@@ -102,7 +104,7 @@ export const login = async (req, res) => {
             return res.status(401).json({ error: 'Contraseña incorrecta' });
         }
 
-        const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET, { expiresIn: '15 mins' });
+        const token = jwt.sign({ email: user.email, rol: user.rol }, process.env.JWT_SECRET, { expiresIn: '15 mins' });
         
         res.json({ message: 'sesion iniciada', token: token, user: { email: user.email, rol: user.rol } });
     } catch (error) {
@@ -138,22 +140,21 @@ export const protect = (req, res) => {
  *     responses:
  *       '200':
  *         description: Token válido, acceso permitido
- *       '403':
- *         description: No se proporcionó un token
- *       '500':
- *         description: Falló la autenticación del token
+ *       '401':
+ *         description: No se proporcionó un token, o es inválido o está vencido
  */
 export const verifyToken = (req, res, next) => {
-    const token = req.headers.authorization.split(' ')[1]; // Extraer el token después de 'Bearer'
-    if (!token) {
-        return res.status(403).json({ error: 'No se proporcionó un token' });
+    const header = req.headers.authorization || '';
+    const [tipo, token] = header.split(' ');
+    if (tipo !== 'Bearer' || !token) {
+        return res.status(401).json({ error: 'No se proporcionó un token' });
     }
-   
+
     jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
         if (err) {
-            return res.status(500).json({ error: 'Falló la autenticación del token ' });
+            return res.status(401).json({ error: 'Token inválido o vencido' });
         }
-        req.userId = decoded.id;
+        req.user = { email: decoded.email, rol: decoded.rol };
         next();
     });
 };
