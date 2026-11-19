@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser';
 import swaggerUi from 'swagger-ui-express';
 
 import loginRoutes from "./routes/login.routes.js";
+import { verifyToken } from "./controllers/login.controller.js";
 import edificioRoutes from "./routes/edificio.routes.js";
 import tagRoutes from "./routes/tag.routes.js";
 import activoRoutes from "./routes/activo.routes.js";
@@ -39,6 +40,10 @@ app.use(cookieParser());
 
 
 app.use("", loginRoutes);
+
+// Todas las rutas de la API requieren un token válido.
+app.use("/api", verifyToken);
+
 app.use("/api/edificio", edificioRoutes);
 app.use("/api/tag", tagRoutes);
 app.use("/api/activo", activoRoutes);
